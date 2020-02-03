@@ -1,0 +1,5 @@
+<h2>All posts here</h2>
+{{#each model as |user index|}}
+    <h4>{{index}}. {{user.name}}</h4>
+{{/each}}
+{{outlet}}

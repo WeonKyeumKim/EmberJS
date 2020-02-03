@@ -1,0 +1,9 @@
+<!--
+@title: title
+@people: scientists.js 에서 return 받은 model 을 people-list 에 pass
+component: people-list 를 call 할때는 <PeopleList 로 한다.
+-->
+
+<PeopleList @title="List of Scientists" @people={{@model}} />
+
+{{outlet}}

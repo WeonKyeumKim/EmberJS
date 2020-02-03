@@ -1,0 +1,61 @@
+<div class="jumbo">
+    <div class="right tomster"></div>
+    <h2>Welcome!</h2>
+    <p>We hope you find exactly what you're looking for in a place to stay.</p>
+    {{#link-to "about" class="button"}}
+        About
+    {{/link-to}}
+</div>
+
+{{!--
+    component name: site-header
+        Classic invocation syntax:
+            {{site-header user=this.user class=(if this.user.isAdmin "admin")}}
+
+        Angle bracket invocation syntax:
+            <SiteHeader @user={{this.user}} @class={{if this.user.isAdmin "admin"}} />
+    HTML attributes
+        Classic invocation syntax:
+            {{#super-select selected=this.user.country as |s|}}
+                {{#each this.availableCountries as |country|}}
+                    {{#s.option value=country}}{{country.name}}{{/s.option}}
+                {{/each}}
+            {{/super-select}}
+        Angle bracket invocation syntax:
+            <SuperSelect @selected={{this.user.country}} as |s|>
+                {{#each this.availableCountries as |country|}}
+                    <s.option @value={{country}}>{{country.name}}</s.option>
+                {{/each}}
+            </SuperSelect>  
+--}}
+{{!--
+    ListFilter 는 list-filter component 
+    filterByCity 는 controller 의 action 이며, city 를 mirage parm 으로
+    pass 하여 store record 를 query 한다.
+        filterByCity(param) {
+            if (param !== '') {
+                return this.store.query('rental', {city: param});
+            } else {
+                return this.store.findAll('rental');
+            }
+        }
+--}}
+{{!-
+    <ListFilter></ListFilter>  this handlebars template 을 
+    yield expression 이 있을째 마다 component's template 안에 
+    render 되어지데 하는 component 의 block form 이다.
+}}
+
+<ListFilter @filter={{action "filterByCity"}} as |filteredResults|>
+    <ul class="results">
+        {{!--
+            before list-filter: {{#each model as |rentalUnit|}}
+            after list-filer: filteredResults 라는 variable 로써 inner markup 으로
+            our filter data 를 passing, yielding 한다.   
+        --}}
+        {{#each filteredResults as |rentalUnit|}}
+            <li><RentalListing @rental={{rentalUnit}} /></li>
+        {{/each}}
+    </ul>
+</ListFilter>
+{{outlet}}

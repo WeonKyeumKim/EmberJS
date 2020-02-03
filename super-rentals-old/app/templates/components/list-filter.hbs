@@ -1,0 +1,23 @@
+{{!--
+    component 로 input 을 accepting
+    template 의 value property -> component 의 value property 로
+      sync 되어진다.
+    components/list-filter.js
+      handleFilterEntry action 은 rentals 의 list 로 search item filter 를
+      apply 하고, results 라는 component attribute 를 set 한다.
+    results 라는 component attribute 는 template 안에 {{yield}} helper 로
+      pass 되어진다. 
+    templates/rentals.hbs
+      results 는  yielded block componemnt 안에서 |filteredResults| 로써
+      refer 되어진다.
+--}}
+
+{{input 
+  value=value
+  type='text'
+  key-up=(action 'handleFilterEntry')
+  placeholder='Filter By City'
+  classs='light'
+}}
+
+{{yield this.results}}

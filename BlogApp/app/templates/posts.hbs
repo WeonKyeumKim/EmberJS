@@ -1,0 +1,5 @@
+<h2>All posts here</h2>
+{{#each model as |post index|}}
+    <h4>{{index}}. {{post.title}}</h4>
+{{/each}}
+{{outlet}}

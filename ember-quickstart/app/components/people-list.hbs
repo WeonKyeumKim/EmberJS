@@ -1,0 +1,17 @@
+<h2>{{@title}}</h2>
+<ul>
+    <!--
+        scientists.js 에서 return 한 model 은 scientists.hbs 에서
+        @model 로 넘겨받고, 이곳의 @people 로 연결 되어진다.
+    -->
+    {{#each @people as |person|}}
+    <li>
+        <!--
+        fn: helper 이며 person 을 argument 로써 component 의 action showPerson 으로 pass
+        -->
+        <button {{on 'click' (fn this.showPerson person)}}>{{person}}</button>
+    </li>
+    {{/each}}
+</ul>
+
+{{yield}}
