@@ -132,6 +132,8 @@
       Forum, Blog, News, Comment
   -->
   <article class="rental">
+      <Rental::Image src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Crane_estate_(5).jpg"
+          alt="A picture of Grand Old Mansion" />
       <div class="details">
           <h3>Grand Old Mansion</h3>
           <div class="detail owner">
@@ -150,8 +152,8 @@
   </article>
   */
   {
-    id: "It2j9XCC",
-    block: "{\"symbols\":[],\"statements\":[[2,\"\\n    \uB3C5\uB9BD\uC801\uC73C\uB85C distribute \uD560 \uC218 \uC788\uB2E4.\\n    Forum, Blog, News, Comment\\n\"],[0,\"\\n\"],[7,\"article\",true],[10,\"class\",\"rental\"],[8],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"details\"],[8],[0,\"\\n        \"],[7,\"h3\",true],[8],[0,\"Grand Old Mansion\"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"detail owner\"],[8],[0,\"\\n            \"],[7,\"span\",true],[8],[0,\"Owner:\"],[9],[0,\" Veruca Salt\\n        \"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"detail type\"],[8],[0,\"\\n            \"],[7,\"span\",true],[8],[0,\"Type:\"],[9],[0,\" Standalone\\n        \"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"detail location\"],[8],[0,\"\\n            \"],[7,\"span\",true],[8],[0,\"Location:\"],[9],[0,\" San Francisco\\n        \"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"detail bedrooms\"],[8],[0,\"\\n            \"],[7,\"span\",true],[8],[0,\"Number of bedrooms:\"],[9],[0,\" 15\\n        \"],[9],[0,\"\\n    \"],[9],[0,\"\\n\"],[9]],\"hasEval\":false}",
+    id: "UTgeNxbf",
+    block: "{\"symbols\":[],\"statements\":[[2,\"\\n    \uB3C5\uB9BD\uC801\uC73C\uB85C distribute \uD560 \uC218 \uC788\uB2E4.\\n    Forum, Blog, News, Comment\\n\"],[0,\"\\n\"],[7,\"article\",true],[10,\"class\",\"rental\"],[8],[0,\"\\n    \"],[5,\"rental/image\",[[12,\"src\",\"https://upload.wikimedia.org/wikipedia/commons/c/cb/Crane_estate_(5).jpg\"],[12,\"alt\",\"A picture of Grand Old Mansion\"]],[[],[]]],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"details\"],[8],[0,\"\\n        \"],[7,\"h3\",true],[8],[0,\"Grand Old Mansion\"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"detail owner\"],[8],[0,\"\\n            \"],[7,\"span\",true],[8],[0,\"Owner:\"],[9],[0,\" Veruca Salt\\n        \"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"detail type\"],[8],[0,\"\\n            \"],[7,\"span\",true],[8],[0,\"Type:\"],[9],[0,\" Standalone\\n        \"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"detail location\"],[8],[0,\"\\n            \"],[7,\"span\",true],[8],[0,\"Location:\"],[9],[0,\" San Francisco\\n        \"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"detail bedrooms\"],[8],[0,\"\\n            \"],[7,\"span\",true],[8],[0,\"Number of bedrooms:\"],[9],[0,\" 15\\n        \"],[9],[0,\"\\n    \"],[9],[0,\"\\n\"],[9]],\"hasEval\":false}",
     meta: {
       moduleName: "super-rentals/components/rental.hbs"
     }
@@ -160,6 +162,54 @@
   var _default = Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, Ember._templateOnlyComponent());
 
   _exports.default = _default;
+});
+;define("super-rentals/components/rental/image", ["exports", "@glimmer/component"], function (_exports, _component) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  const __COLOCATED_TEMPLATE__ = Ember.HTMLBars.template(
+  /*
+    <!--
+      css class large 를 사용해서 picture size 를 바꾼다
+  -->
+  
+  {{#if this.isLarge}}
+  <div class="image large">
+      <img ...attributes>
+      <small>View Smaller</small>
+  </div>
+  {{else}}
+  <div class="image">
+      <img ...attributes>
+      <small>View Larger</small>
+  </div>
+  {{/if}}
+  */
+  {
+    id: "7/eCpr+P",
+    block: "{\"symbols\":[\"&attrs\"],\"statements\":[[2,\"\\n    css class large \uB97C \uC0AC\uC6A9\uD574\uC11C picture size \uB97C \uBC14\uAFBC\uB2E4\\n\"],[0,\"\\n\\n\"],[4,\"if\",[[23,0,[\"isLarge\"]]],null,{\"statements\":[[7,\"div\",true],[10,\"class\",\"image large\"],[8],[0,\"\\n    \"],[7,\"img\",false],[13,1],[8],[9],[0,\"\\n    \"],[7,\"small\",true],[8],[0,\"View Smaller\"],[9],[0,\"\\n\"],[9],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[7,\"div\",true],[10,\"class\",\"image\"],[8],[0,\"\\n    \"],[7,\"img\",false],[13,1],[8],[9],[0,\"\\n    \"],[7,\"small\",true],[8],[0,\"View Larger\"],[9],[0,\"\\n\"],[9],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}",
+    meta: {
+      moduleName: "super-rentals/components/rental/image.hbs"
+    }
+  });
+
+  class RentalImageComponent extends _component.default {
+    constructor(...args) {
+      super(...args);
+      /* initialize */
+
+      this.isLarge = false;
+    }
+
+  }
+
+  _exports.default = RentalImageComponent;
+
+  Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, RentalImageComponent);
 });
 ;define("super-rentals/components/welcome-page", ["exports", "ember-welcome-page/components/welcome-page"], function (_exports, _welcomePage) {
   "use strict";
@@ -637,7 +687,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("super-rentals/app")["default"].create({"name":"super-rentals","version":"0.0.0+40a06562"});
+            require("super-rentals/app")["default"].create({"name":"super-rentals","version":"0.0.0+2b969a48"});
           }
         
 //# sourceMappingURL=super-rentals.map

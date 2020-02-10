@@ -7,7 +7,7 @@ module("Integration | Component | rental", function(hooks) {
   setupRenderingTest(hooks);
 
   test("it renders information about a rental property", async function(assert) {
-    await render(hbs` <Rental />`);
+    await render(hbs`<Rental />`);
 
     assert.dom("article").hasClass("rental");
     assert.dom("article h3").hasText("Grand Old Mansion");
@@ -15,6 +15,7 @@ module("Integration | Component | rental", function(hooks) {
     assert.dom("article .detail.type").includesText("Standalone");
     assert.dom("article .detail.location").includesText("San Francisco");
     assert.dom("article .detail.bedrooms").includesText("15");
+    assert.dom("article .image").exists();
   });
 
   /*

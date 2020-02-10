@@ -1,0 +1,15 @@
+<!--
+    css class large 를 사용해서 picture size 를 바꾼다
+-->
+
+{{#if this.isLarge}}
+<div class="image large">
+    <img ...attributes>
+    <small>View Smaller</small>
+</div>
+{{else}}
+<div class="image">
+    <img ...attributes>
+    <small>View Larger</small>
+</div>
+{{/if}}

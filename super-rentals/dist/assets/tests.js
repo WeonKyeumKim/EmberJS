@@ -168,11 +168,11 @@ define("super-rentals/tests/integration/components/rental-test", ["qunit", "embe
     (0, _qunit.test)("it renders information about a rental property", async function (assert) {
       await (0, _testHelpers.render)(Ember.HTMLBars.template(
       /*
-         <Rental />
+        <Rental />
       */
       {
-        id: "dpQyOFwi",
-        block: "{\"symbols\":[],\"statements\":[[0,\" \"],[5,\"rental\",[],[[],[]]]],\"hasEval\":false}",
+        id: "LsA0MtHE",
+        block: "{\"symbols\":[],\"statements\":[[5,\"rental\",[],[[],[]]]],\"hasEval\":false}",
         meta: {}
       }));
       assert.dom("article").hasClass("rental");
@@ -181,6 +181,7 @@ define("super-rentals/tests/integration/components/rental-test", ["qunit", "embe
       assert.dom("article .detail.type").includesText("Standalone");
       assert.dom("article .detail.location").includesText("San Francisco");
       assert.dom("article .detail.bedrooms").includesText("15");
+      assert.dom("article .image").exists();
     });
     /*
       original: not used
@@ -200,6 +201,48 @@ define("super-rentals/tests/integration/components/rental-test", ["qunit", "embe
      */
   });
 });
+define("super-rentals/tests/integration/components/rental/image-test", ["qunit", "ember-qunit", "@ember/test-helpers"], function (_qunit, _emberQunit, _testHelpers) {
+  "use strict";
+
+  (0, _qunit.module)("Integration | Component | rental/image", function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    (0, _qunit.test)("it renders the given image", async function (assert) {
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        
+            <Rental::Image
+              src="/assets/images/teaching-tomster.png"
+              alt="Teaching Tomster"
+            />
+          
+      */
+      {
+        id: "d4/XUZdv",
+        block: "{\"symbols\":[],\"statements\":[[0,\"\\n      \"],[5,\"rental/image\",[[12,\"src\",\"/assets/images/teaching-tomster.png\"],[12,\"alt\",\"Teaching Tomster\"]],[[],[]]],[0,\"\\n    \"]],\"hasEval\":false}",
+        meta: {}
+      }));
+      assert.dom(".image").exists();
+      assert.dom(".image img").hasAttribute("src", "/assets/images/teaching-tomster.png");
+      assert.dom(".image img").hasAttribute("alt", "Teaching Tomster");
+    });
+    /* 
+      original not used 
+    test('it renders', async function(assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+       await render(hbs`<Rental::Image />`);
+       assert.equal(this.element.textContent.trim(), '');
+       // Template block usage:
+      await render(hbs`
+        <Rental::Image>
+          template block text
+        </Rental::Image>
+      `);
+       assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+     */
+  });
+});
 define("super-rentals/tests/lint/app.lint-test", [], function () {
   "use strict";
 
@@ -207,6 +250,10 @@ define("super-rentals/tests/lint/app.lint-test", [], function () {
   QUnit.test('app.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'app.js should pass ESLint\n\n');
+  });
+  QUnit.test('components/rental/image.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/rental/image.js should pass ESLint\n\n');
   });
   QUnit.test('router.js', function (assert) {
     assert.expect(1);
@@ -261,6 +308,10 @@ define("super-rentals/tests/lint/tests.lint-test", [], function () {
   QUnit.test('integration/components/rental-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/rental-test.js should pass ESLint\n\n');
+  });
+  QUnit.test('integration/components/rental/image-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/rental/image-test.js should pass ESLint\n\n');
   });
   QUnit.test('test-helper.js', function (assert) {
     assert.expect(1);
