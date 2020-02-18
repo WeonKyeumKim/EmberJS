@@ -123,6 +123,143 @@ define("super-rentals/tests/integration/components/jumbo-test", ["qunit", "ember
     });
   });
 });
+define("super-rentals/tests/integration/components/map-test", ["qunit", "ember-qunit", "@ember/test-helpers", "super-rentals/config/environment"], function (_qunit, _emberQunit, _testHelpers, _environment) {
+  "use strict";
+
+  (0, _qunit.module)("Integration | Component | map", function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    (0, _qunit.test)("it renders a map image for the specified parameters", async function (assert) {
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        
+            <Map
+            @lat="37.7797"
+            @lng="-122.4184"
+            @zoom="10"
+            @width="150"
+            @height="120"
+          />
+      */
+      {
+        id: "BrVN2tDo",
+        block: "{\"symbols\":[],\"statements\":[[0,\"\\n      \"],[5,\"map\",[],[[\"@lat\",\"@lng\",\"@zoom\",\"@width\",\"@height\"],[\"37.7797\",\"-122.4184\",\"10\",\"150\",\"120\"]]]],\"hasEval\":false}",
+        meta: {}
+      }));
+      assert.dom(".map").exists();
+      assert.dom(".map img").hasAttribute("alt", "Map image at coordinates 37.7797,-122.4184");
+      assert.dom(".map img").hasAttribute("src", /^https:\/\/api\.mapbox\.com/, 'the src starts with "https://api.mapbox.com"');
+      assert.dom(".map img").hasAttribute("width", "150");
+      assert.dom(".map img").hasAttribute("height", "120");
+      let {
+        src
+      } = (0, _testHelpers.find)(".map img");
+      let token = encodeURIComponent(_environment.default.MAPBOX_ACCESS_TOKEN);
+      assert.ok(src.includes("-122.4184,37.7797,10"), "the src should include the lng,lat,zoom parameter");
+      assert.ok(src.includes("150x120@2x"), "the src should include the width,height and @2x parameter");
+      assert.ok(src.includes(`access_token=${token}`), "the src should include the escaped access token");
+    });
+    (0, _qunit.test)("it updates the `src` attribute when the arguments change", async function (assert) {
+      this.setProperties({
+        lat: 37.7749,
+        lng: -122.4194,
+        zoom: 10,
+        width: 150,
+        height: 120
+      });
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <Map
+            @lat={{this.lat}}
+            @lng={{this.lng}}
+            @zoom={{this.zoom}}
+            @width={{this.width}}
+            @height={{this.height}}
+          />
+      */
+      {
+        id: "vKQ5OH/Y",
+        block: "{\"symbols\":[],\"statements\":[[5,\"map\",[],[[\"@lat\",\"@lng\",\"@zoom\",\"@width\",\"@height\"],[[23,0,[\"lat\"]],[23,0,[\"lng\"]],[23,0,[\"zoom\"]],[23,0,[\"width\"]],[23,0,[\"height\"]]]]]],\"hasEval\":false}",
+        meta: {}
+      }));
+      let img = (0, _testHelpers.find)(".map img");
+      assert.ok(img.src.includes("-122.4194,37.7749,10"), "the src should include the lng,lat,zoom parameter");
+      assert.ok(img.src.includes("150x120@2x"), "the src should include the width,height and @2x parameter");
+      this.setProperties({
+        width: 300,
+        height: 200,
+        zoom: 12
+      });
+      assert.ok(img.src.includes("-122.4194,37.7749,12"), "the src should include the lng,lat,zoom parameter");
+      assert.ok(img.src.includes("300x200@2x"), "the src should include the width,height and @2x parameter");
+      this.setProperties({
+        lat: 47.6062,
+        lng: -122.3321
+      });
+      assert.ok(img.src.includes("-122.3321,47.6062"), "the src should include the lng,lat,zoom parameter");
+      assert.ok(img.src.includes("300x200@2x"), "the src should include the width,height and @2x parameter");
+    });
+    (0, _qunit.test)("the default alt attribute can be overridden", async function (assert) {
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        
+          <Map
+          @lat="37.7797"
+          @lng="-122.4184"
+          @zoom="10"
+          @width="150"
+          @height="120"
+          alt="A map of San Francisco"
+          />
+      */
+      {
+        id: "zoYkWoUq",
+        block: "{\"symbols\":[],\"statements\":[[0,\"\\n    \"],[5,\"map\",[[12,\"alt\",\"A map of San Francisco\"]],[[\"@lat\",\"@lng\",\"@zoom\",\"@width\",\"@height\"],[\"37.7797\",\"-122.4184\",\"10\",\"150\",\"120\"]]]],\"hasEval\":false}",
+        meta: {}
+      }));
+      assert.dom(".map img").hasAttribute("alt", "A map of San Francisco");
+    });
+    (0, _qunit.test)("the src, width and height attributes cannot be overridden", async function (assert) {
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <Map
+            @lat="37.7797"
+            @lng="-122.4184"
+            @zoom="10"
+            @width="150"
+            @height="120"
+            src="/assets/images/teaching-tomster.png"
+            width="200"
+            height="300"
+          />
+      */
+      {
+        id: "h1R+Rhad",
+        block: "{\"symbols\":[],\"statements\":[[5,\"map\",[[12,\"src\",\"/assets/images/teaching-tomster.png\"],[12,\"width\",\"200\"],[12,\"height\",\"300\"]],[[\"@lat\",\"@lng\",\"@zoom\",\"@width\",\"@height\"],[\"37.7797\",\"-122.4184\",\"10\",\"150\",\"120\"]]]],\"hasEval\":false}",
+        meta: {}
+      }));
+      assert.dom(".map img").hasAttribute("src", /^https:\/\/api\.mapbox\.com/, 'the src starts with "https://api.mapbox.com"');
+      assert.dom(".map img").hasAttribute("width", "150");
+      assert.dom(".map img").hasAttribute("height", "120");
+    });
+    /*
+    module('Integration | Component | map', function(hooks) {
+    setupRenderingTest(hooks);
+     test('it renders', async function(assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+       await render(hbs`<Map />`);
+       assert.equal(this.element.textContent.trim(), '');
+       // Template block usage:
+      await render(hbs`
+        <Map>
+          template block text
+        </Map>
+      `);
+       assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+     */
+  });
+});
 define("super-rentals/tests/integration/components/nav-bar-test", ["qunit", "ember-qunit", "@ember/test-helpers"], function (_qunit, _emberQunit, _testHelpers) {
   "use strict";
 
@@ -182,6 +319,7 @@ define("super-rentals/tests/integration/components/rental-test", ["qunit", "embe
       assert.dom("article .detail.location").includesText("San Francisco");
       assert.dom("article .detail.bedrooms").includesText("15");
       assert.dom("article .image").exists();
+      assert.dom("article .map").exists();
     });
     /*
       original: not used
@@ -225,6 +363,31 @@ define("super-rentals/tests/integration/components/rental/image-test", ["qunit",
       assert.dom(".image img").hasAttribute("src", "/assets/images/teaching-tomster.png");
       assert.dom(".image img").hasAttribute("alt", "Teaching Tomster");
     });
+    (0, _qunit.test)("clicking on  the component toggles its size", async function (assert) {
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        
+            <Rental::Image 
+              arc="/assets/teaching-tomster.png"
+              alt="Teaching Tomster"
+            />
+          
+      */
+      {
+        id: "EOV7J7b1",
+        block: "{\"symbols\":[],\"statements\":[[0,\"\\n      \"],[5,\"rental/image\",[[12,\"arc\",\"/assets/teaching-tomster.png\"],[12,\"alt\",\"Teaching Tomster\"]],[[],[]]],[0,\"\\n    \"]],\"hasEval\":false}",
+        meta: {}
+      }));
+      assert.dom("button.image").exists();
+      assert.dom(".image").doesNotHaveClass("large");
+      assert.dom(".image small").hasText("View Larger");
+      await (0, _testHelpers.click)("button.image");
+      assert.dom(".image").hasClass("large");
+      assert.dom(".image small").hasText("View Smaller");
+      await (0, _testHelpers.click)("button.image");
+      assert.dom(".image").doesNotHaveClass("large");
+      assert.dom(".image small").hasText("View Larger");
+    });
     /* 
       original not used 
     test('it renders', async function(assert) {
@@ -250,6 +413,10 @@ define("super-rentals/tests/lint/app.lint-test", [], function () {
   QUnit.test('app.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'app.js should pass ESLint\n\n');
+  });
+  QUnit.test('components/map.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/map.js should pass ESLint\n\n');
   });
   QUnit.test('components/rental/image.js', function (assert) {
     assert.expect(1);
@@ -300,6 +467,10 @@ define("super-rentals/tests/lint/tests.lint-test", [], function () {
   QUnit.test('integration/components/jumbo-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/jumbo-test.js should pass ESLint\n\n');
+  });
+  QUnit.test('integration/components/map-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/map-test.js should pass ESLint\n\n');
   });
   QUnit.test('integration/components/nav-bar-test.js', function (assert) {
     assert.expect(1);

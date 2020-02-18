@@ -1,0 +1,10 @@
+<div class="map">
+    <!--
+        render the static map image @lat, @lng, @zoom, @width, @height
+        @를 사용하여 reusabe component 로 만든다. 
+        ...attributes 로 parameter 를 넘겨받아 img tag 를 customize 한다.
+        map.hbs 에서 this.src 를 사용하여 url 을 가져온다.
+    -->
+    <img alt="Map image at coordinates {{@lat}},{{@lng}}" ...attributes src={{this.src}} width={{@width}}
+        height={{@height}}>
+</div>
